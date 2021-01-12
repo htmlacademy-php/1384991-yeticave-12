@@ -1,5 +1,5 @@
 <?php
-require('functions.php');
+require 'functions.php';
 $is_auth = rand(0, 1);
 $user_name = 'Oleh'; // укажите здесь ваше имя
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
