@@ -3,7 +3,7 @@ require 'functions.php';
 require 'helpers.php';
 $is_auth = rand(0, 1);
 $user_name = 'Oleh'; // укажите здесь ваше имя
-$categories = ["<'Доски и лыжи'>", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 $products = [
     [
         "name" => "2014 Rossignol District Snowboard",
