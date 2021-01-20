@@ -17,16 +17,4 @@
 		$diff_array = [$diff_hours, $diff_min];
 		return $diff_array;
 	}
-	function add_finishing_class ($date) {
-		$diff_array = get_expiry_time($date);
-		if ($diff_array['0'] < 1) {
-			return true;
-		}
-	}
-	function get_finish_lot ($date) {
-		$diff_array = get_expiry_time($date);
-		if ($diff_array['0'] <= 0 && $diff_array['1'] <= 0) {
-			return true;
-		}
-	}
 ?>
