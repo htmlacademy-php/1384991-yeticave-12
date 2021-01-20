@@ -29,8 +29,8 @@
                                 <span class="lot__amount">Стартовая цена</span>
                                 <span class="lot__cost"><?php echo price_format(clear_spec($item['price'])) ?></span>
                             </div>
-                            <div class="lot__timer timer">
-                                12:23
+                            <div class="lot__timer timer <?=add_finishing_class($item['exp_date']);?>">
+                                <?=implode(":", (get_expiry_time(clear_spec($item['exp_date'])))); ?>
                             </div>
                         </div>
                     </div>
