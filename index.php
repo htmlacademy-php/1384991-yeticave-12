@@ -31,7 +31,7 @@ $products = [
         "category" => "Ботинки",
         "price" => 10999,
         "img_url" => "img/lot-4.jpg",
-        "exp_date" => "2021-01-20 18:41"
+        "exp_date" => "2021-01-20 20:48"
     ],
     [
         "name" => "Куртка для сноуборда DC Mutiny Charocal",
