@@ -18,6 +18,7 @@
             <!--заполните этот список из массива с товарами-->
             <?php foreach ($products as $item): ?>
                 <li class="lots__item lot">
+                    <?php list($hours, $minuts) = get_expiry_time($item['exp_date']); ?>
                     <div class="lot__image">
                         <img src="<?=clear_spec($item['img_url']) ?>" width="350" height="260" alt="">
                     </div>
@@ -29,8 +30,12 @@
                                 <span class="lot__amount">Стартовая цена</span>
                                 <span class="lot__cost"><?php echo price_format(clear_spec($item['price'])) ?></span>
                             </div>
-                            <div class="lot__timer timer">
-                                12:23
+                            <div class="lot__timer timer <?php if ($hours < 1): ?>timer--finishing<?php endif;?>">
+                            <?php if($hours <= 0 && $minuts <= 0): ?>
+                                00:00
+                                <?php else: ?>
+                                <?=clear_spec($hours . ":" . $minuts); ?>
+                            <?php endif; ?>
                             </div>
                         </div>
                     </div>
