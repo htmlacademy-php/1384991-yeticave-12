@@ -1,6 +1,5 @@
 CREATE DATABASE yeticave
-	DEFAULT CHARACTER SET utf8
-	DEFAULT COLLATE utf8_general_ci;
+	DEFAULT CHARACTER SET utf8mb4;
 
 USE yeticave;
 
@@ -12,33 +11,35 @@ CREATE TABLE categories (
 
 CREATE TABLE lots (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	add_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	add_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 	name_lot VARCHAR(255),
 	description_lot TEXT,
 	img_url VARCHAR(255),
-	start_price FLOAT,
+	start_price INT,
 	end_date TIMESTAMP,
-	step_bet FLOAT,
+	step_bet INT,
 	cat_id INT,
 	user_id INT,
 	winner_id INT
 );
 
+CREATE INDEX s_name ON lots(name_lot);
+
 CREATE TABLE bets (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	add_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	bet_price FLOAT,
+	add_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+	bet_price INT,
 	user_id INT,
 	lot_id INT
 );
 
 CREATE TABLE users (
 	id INT PRIMARY KEY AUTO_INCREMENT,
-	reg_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	reg_date DATETIME DEFAULT CURRENT_TIMESTAMP,
 	user_email VARCHAR(255) UNIQUE,
 	user_name VARCHAR(255),
-	password CHAR(32),
+	password VARCHAR(255),
 	contacts TEXT
-	/*lots_ids TEXT,*/
-	/*bets_ids TEXT*/
 );
+
+CREATE INDEX s_user ON users(user_email);
