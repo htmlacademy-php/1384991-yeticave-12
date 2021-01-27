@@ -41,5 +41,3 @@ CREATE TABLE users (
 	password VARCHAR(255),
 	contacts TEXT
 );
-
-CREATE INDEX s_user ON users(user_email);
