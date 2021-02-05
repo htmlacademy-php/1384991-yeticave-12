@@ -15,7 +15,10 @@ INSERT INTO categories(cat_name, cat_url) VALUES
 INSERT INTO users(user_email, user_name, password, contacts) VALUES 
 ('vasya@mail.ru', 'Василий', '12345', 'Телефон: +79161234567'),
 ('igor@mail.ru', 'Игорь', '1111111', 'Телефон: +79260001234'),
-('andrey@mail.ru', 'Андрей', '030303', 'Телефон: +79902254545');
+('andrey@mail.ru', 'Андрей', '030303', 'Телефон: +79902254545'),
+('gosha@m.com', 'Георгий', '321', 'Телефон: +79291887744'),
+('viktor@mqs.com', 'Виктор', '321123', 'Телефон: +79190109089'),
+('zhenya@mg.com', 'Евгений', '777333', 'Телефон: +79900181714');
 
 /* Добавляем таблицу с лотами */
 
@@ -31,7 +34,15 @@ INSERT INTO lots(name_lot, description_lot, img_url, start_price, end_date, step
 
 INSERT INTO bets(bet_price, user_id, lot_id) VALUES 
 (5450, 3, 6),
-(5500, 2, 6);
+(5500, 2, 6),
+(11100, 4, 4),
+(11300, 6, 4),
+(12500, 5, 4),
+(15000, 4, 4),
+(8000, 6, 5),
+(9000, 4, 5),
+(10000, 6, 5),
+(161000, 4, 2);
 
 /* Пишем запросы для действий в БД */
 
@@ -41,10 +52,12 @@ SELECT * FROM categories;
 
 /* Получаем самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, текущую цену, название категории */
 
-SELECT name_lot, start_price, img_url, bets.bet_price, categories.cat_name FROM lots 
+SELECT name_lot, start_price, img_url, max(bets.bet_price), categories.cat_name FROM lots 
 JOIN bets ON lots.id = bets.lot_id 
 JOIN categories ON lots.cat_id = categories.id
-WHERE end_date > CURRENT_TIMESTAMP ORDER BY lots.add_date DESC;
+WHERE end_date > CURRENT_TIMESTAMP 
+GROUP BY bets.lot_id 
+ORDER BY lots.add_date DESC;
 
 /* Показываем лот по его id, также выводим название категории, к которой относится лот */
 
