@@ -50,9 +50,9 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach($categories as $value): ?>
+            <?php foreach($categories_arr as $item): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=clear_spec($value);?></a>
+                    <a href="pages/all-lots.html"><?=clear_spec($item['cat_name']);?></a>
                 </li>
             <?php endforeach; ?>
         </ul>

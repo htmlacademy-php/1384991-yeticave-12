@@ -53,10 +53,10 @@ SELECT * FROM categories;
 /* Получаем самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, текущую цену, название категории */
 
 SELECT name_lot, start_price, img_url, max(bets.bet_price), categories.cat_name FROM lots 
-JOIN bets ON lots.id = bets.lot_id 
+LEFT JOIN bets ON lots.id = bets.lot_id 
 JOIN categories ON lots.cat_id = categories.id
 WHERE end_date > CURRENT_TIMESTAMP 
-GROUP BY bets.lot_id 
+GROUP BY lots.id 
 ORDER BY lots.add_date DESC;
 
 /* Показываем лот по его id, также выводим название категории, к которой относится лот */
