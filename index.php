@@ -1,11 +1,6 @@
 <?php
 require 'connections.php';
 
-// запрос на получение списка категорий
-$get_categories_sql = "SELECT * FROM categories";
-$result_categories = $db_connect->query($get_categories_sql);
-$categories_arr = $result_categories->fetch_all(MYSQLI_ASSOC);
-
 // запрос на получение списка активных лотов
 $get_lots_sql = "SELECT lots.id, name_lot, end_date, start_price, img_url, max(bets.bet_price), categories.cat_name FROM lots 
     LEFT JOIN bets ON lots.id = bets.lot_id 
