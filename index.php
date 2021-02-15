@@ -1,5 +1,5 @@
 <?php
-require 'connections.php';
+require 'init.php';
 
 // запрос на получение списка активных лотов
 $get_lots_sql = "SELECT lots.id, name_lot, end_date, start_price, img_url, max(bets.bet_price), categories.cat_name FROM lots 

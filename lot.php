@@ -1,5 +1,5 @@
 <?php
-require 'connections.php';
+require 'init.php';
 
 if (!isset($_GET['id'])) {
 	get_404($categories_arr, $user_name, $is_auth);
@@ -10,6 +10,7 @@ LEFT JOIN bets ON lots.id = bets.lot_id
 JOIN categories ON lots.cat_id = categories.id
 WHERE lots.id=?
 GROUP BY lots.id";
+
 $stmt_lot = $db_connect->prepare($get_lot_sql);
 $stmt_lot->bind_param("s", $_GET['id']);
 $stmt_lot->execute();
