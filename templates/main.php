@@ -1,3 +1,4 @@
+<main class="container"> 
     <section class="promo">
         <h2 class="promo__title">Нужен стафф для катки?</h2>
         <p class="promo__text">На нашем интернет-аукционе ты найдёшь самое эксклюзивное сноубордическое и горнолыжное снаряжение.</p>
@@ -24,7 +25,7 @@
                     </div>
                     <div class="lot__info">
                         <span class="lot__category"><?=clear_spec($item['cat_name']) ?></span>
-                        <h3 class="lot__title"><a class="text-link" href="pages/lot.html"><?=clear_spec($item['name_lot']) ?></a></h3>
+                        <h3 class="lot__title"><a class="text-link" href="/lot.php?id=<?=clear_spec($item['id'])?>"><?=clear_spec($item['name_lot']) ?></a></h3>
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
@@ -43,3 +44,4 @@
             <?php endforeach; ?>
         </ul>
     </section>
+</main>
