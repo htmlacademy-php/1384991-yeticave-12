@@ -16,7 +16,7 @@
           <div class="lot-item__image">
             <img src="<?=clear_spec($row_lot['img_url'])?>" width="730" height="548" alt="Сноуборд">
           </div>
-          <p class="lot-item__category">Категория: <span><?=clear_spec($categories_arr[$row_lot['id']]['cat_name'])?></span></p>
+          <p class="lot-item__category">Категория: <span><?=clear_spec($categories_arr[$row_lot['cat_id']]['cat_name'])?></span></p>
           <p class="lot-item__description"><?=clear_spec($row_lot['description_lot'])?></p>
         </div>
         <div class="lot-item__right">

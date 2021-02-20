@@ -25,3 +25,75 @@ function get_404 ($categories_arr, $user_name, $is_auth) {
 	print $layout_content;
 	exit;
 }
+//Автозаполнение поля при ошибке валидации
+function getPostVal($name) {
+    return $_POST[$name] ?? "";
+}
+//Валидация формы добавления лота
+function checkField($param, $fileinfo) {
+$err = [];
+foreach ($param as $key => $value) {
+	if ($key == 'lot-name') {
+		if($value == NULL) {
+			$err[$key] = 'Введите название лота';
+		}
+	}
+
+	if ($key == 'category') {
+		if($value == NULL) {
+			$err[$key] = 'Выберите категорию';
+		}
+	}
+
+	if ($key == 'message') {
+		if($value == NULL) {
+			$err[$key] = 'Заполните описание лота';
+		}
+	}
+	if ($key == 'lot-rate') {
+		if ($value == NULL) {
+			$err[$key] = 'Укажите стоимость лота';
+		} elseif (!ctype_digit($value) OR $value <= 0) { 
+			$err[$key] = 'Введите целое число больше 0';
+		}
+	}
+	if ($key == 'lot-step') {
+		if ($value == NULL) {
+			$err[$key] = 'Укажите шаг ставки';
+		} elseif (!ctype_digit($value) OR $value <= 0) { 
+			$err[$key] = 'Введите целое число больше 0';
+		}
+	}
+	if ($key == 'lot-date') {
+		if($value == NULL) {
+			$err[$key] = 'Выберите дату завершения';
+		} else {
+			$dateUnix = strtotime($value);
+			$correctDateUnix = time() + 86400;
+			if ($dateUnix < $correctDateUnix) {
+				$err[$key] = 'Минимальная продолжительность аукциона 24 часа';
+			}
+		}
+	}
+}
+if ($fileinfo == NULL) {
+	$err['image-lot'] = 'Выберите изображение лота';
+}
+if ($fileinfo['type'] !== 'image/jpeg' and $fileinfo['type'] !== 'image/png') {
+	$err['image-lot'] = 'Загрузите картинку в формате jpeg или png';
+}
+if ($fileinfo['size'] > 200000) {
+	$err['image-lot'] = "Максимальный размер файла: 200Кб";
+}
+$file_name = $fileinfo['name'];
+$file_path = __DIR__ . '/uploads/';
+$file_url = '/uploads/' . $file_name;
+if (!move_uploaded_file($fileinfo['tmp_name'], $file_path . $file_name)) {
+	$err['image-lot'] = "Изображение не загружено";
+}
+if (count($err)) {
+	return $err;
+} else {
+	return false;
+}
+}
