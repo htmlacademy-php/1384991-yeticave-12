@@ -9,17 +9,15 @@ if (!empty($_POST)) {
 		$id_user = 1;
 		$file_name = $_FILES['image-lot']['name'];
 		$file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
-		$lot_img = $file_extension;
 		$sql = "INSERT INTO lots SET name_lot = ?, description_lot = ?, img_url = ?, start_price = ?, end_date = ?, 
 		step_bet = ?, cat_id = ?, user_id = ?";
 		$stmt = $db_connect->prepare($sql);
-		$stmt->bind_param("ssssssss", $_POST['lot-name'], $_POST['message'], $lot_img, $_POST['lot-rate'], $_POST['lot-date'], 
+		$stmt->bind_param("ssssssss", $_POST['lot-name'], $_POST['message'], $file_extension, $_POST['lot-rate'], $_POST['lot-date'], 
 			$_POST['lot-step'], $_POST['category'], $id_user);
 		$stmt->execute();
 		$last_id = mysqli_insert_id($db_connect);
 		$file_name = $last_id . "." . $file_extension;
 		$file_path = __DIR__ . '/uploads/';
-		$file_url = '/uploads/' . $file_name;
 		move_uploaded_file($_FILES['image-lot']['tmp_name'], $file_path . $file_name);
 		header("Location: /lot.php?id=$last_id");
   		exit;

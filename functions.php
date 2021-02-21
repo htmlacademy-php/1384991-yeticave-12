@@ -223,7 +223,7 @@ function checkField($param, $fileinfo) {
 	} else {
 		$file_name = $fileinfo['name'];
 		$file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
-		if (($file_extension !== 'jpeg' and $file_extension !== 'jpg' and $file_extension !== 'png') OR ($fileinfo['type'] !== 'image/jpeg' 
+		if ((!in_array($file_extension, ['jpeg', 'jpg', 'png'])) OR ($fileinfo['type'] !== 'image/jpeg' 
 			and $fileinfo['type'] !== 'image/jpg' and $fileinfo['type'] !== 'image/png')) {
 			$err['image-lot'] = 'Выберите изображение в формате jpeg или png';
 		}
