@@ -42,6 +42,17 @@
         </nav>
     </div>
 </header>
+    <?php if ($_SERVER['REQUEST_URI'] !== '/'): ?>
+    <nav class="nav">
+      <ul class="nav__list container">
+        <?php foreach ($categories_arr as $item): ?>
+        <li class="nav__item">
+          <a href="all-lots.html"><?=clear_spec($item['cat_name'])?></a>
+        </li>
+        <?php endforeach; ?>
+      </ul>
+    </nav>
+    <?php endif; ?>
 	<?=$page_content; ?>
 </div>
 

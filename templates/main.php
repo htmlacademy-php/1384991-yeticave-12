@@ -21,7 +21,7 @@
                 <li class="lots__item lot">
                     <?php list($hours, $minuts) = get_expiry_time($item['end_date']); ?>
                     <div class="lot__image">
-                        <img src="<?=clear_spec($item['img_url']) ?>" width="350" height="260" alt="">
+                        <img src="/uploads/<?=clear_spec($item['id'] . '.' . $item['img_url']) ?>" width="350" height="260" alt="">
                     </div>
                     <div class="lot__info">
                         <span class="lot__category"><?=clear_spec($item['cat_name']) ?></span>

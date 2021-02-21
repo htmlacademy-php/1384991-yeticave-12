@@ -1,5 +1,5 @@
-<?php require 'functions.php';
-require 'helpers.php';
+<?php 
+require 'functions.php';
 if (!file_exists('config.php'))
  {
      $msg = 'Создайте файл config.php на основе config.sample.php и внесите туда настройки сервера MySQL';

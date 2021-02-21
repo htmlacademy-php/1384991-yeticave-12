@@ -1,13 +1,4 @@
 <main>
-    <nav class="nav">
-      <ul class="nav__list container">
-        <?php foreach ($categories_arr as $item): ?>
-        <li class="nav__item">
-          <a href="all-lots.html"><?=clear_spec($item['cat_name'])?></a>
-        </li>
-        <?php endforeach; ?>
-      </ul>
-    </nav>
     <form class="form form--add-lot container <?php if(count($err)): ?>form--invalid<?php endif ;?>" action="/add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
       <h2>Добавление лота</h2>
       <div class="form__container-two">
@@ -36,7 +27,7 @@
         <label>Изображение <sup>*</sup></label>
         <div class="form__input-file">
           <input class="visually-hidden" type="file" name="image-lot" id="lot-img" value="">
-          <label for="lot-img">
+          <label for="lot-img">   
             Добавить
           </label>
         </div>
@@ -59,7 +50,6 @@
           <span class="form__error"><?=clear_spec($err['lot-date']); ?></span>
         </div>
       </div>
-      <input type="hidden" name="user_id" value="1">
       <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>
       <button type="submit" class="button">Добавить лот</button>
     </form>
