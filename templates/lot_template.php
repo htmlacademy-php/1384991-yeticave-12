@@ -1,22 +1,12 @@
 <main>
-
-    <nav class="nav">
-      <ul class="nav__list container">
-        <?php foreach ($categories_arr as $item): ?>
-        <li class="nav__item">
-          <a href="all-lots.html"><?=clear_spec($item['cat_name'])?></a>
-        </li>
-        <?php endforeach; ?>
-      </ul>
-    </nav>
     <section class="lot-item container">
       <h2><?=$row_lot['name_lot']?></h2>
       <div class="lot-item__content">
         <div class="lot-item__left">
           <div class="lot-item__image">
-            <img src="<?=clear_spec($row_lot['img_url'])?>" width="730" height="548" alt="Сноуборд">
+            <img src="/uploads/<?=clear_spec($row_lot['id'] . '.' . $row_lot['img_url'])?>" width="730" height="548" alt="Сноуборд">
           </div>
-          <p class="lot-item__category">Категория: <span><?=clear_spec($categories_arr[$row_lot['id']]['cat_name'])?></span></p>
+          <p class="lot-item__category">Категория: <span><?=clear_spec($categories_arr[$row_lot['cat_id']]['cat_name'])?></span></p>
           <p class="lot-item__description"><?=clear_spec($row_lot['description_lot'])?></p>
         </div>
         <div class="lot-item__right">
