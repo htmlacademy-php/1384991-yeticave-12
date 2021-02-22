@@ -15,4 +15,3 @@ $page_content = include_template('main.php', ['categories_arr' => $categories_ar
 
 $layout_content = include_template('layout.php', ['page_content' => $page_content, 'categories_arr' => $categories_arr, 'user_name' => $user_name, 'page_title' => 'Главная', 'is_auth' => $is_auth]);
 print $layout_content;
-

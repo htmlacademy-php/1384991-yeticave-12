@@ -172,64 +172,12 @@ function get_404 ($categories_arr, $user_name, $is_auth) {
 function getPostVal($name) {
     return $_POST[$name] ?? "";
 }
-//Валидация формы добавления лота
-function checkField($param, $fileinfo) {
-	$err = [];
-	foreach ($param as $key => $value) {
-		if ($key == 'lot-name') {
-			if(empty($value)) {
-				$err[$key] = 'Введите название лота';
-			}
-		}
-		elseif ($key == 'category') {
-			if(empty($value)) {
-				$err[$key] = 'Выберите категорию';
-			}
-		}
 
-		elseif ($key == 'message') {
-			if(empty($value)) {
-				$err[$key] = 'Заполните описание лота';
-			}
-		}
-		elseif ($key == 'lot-rate') {
-			if ($value == NULL) {
-				$err[$key] = 'Укажите стоимость лота';
-			} elseif (!ctype_digit($value) OR $value <= 0) { 
-				$err[$key] = 'Введите целое число больше 0';
-			}
-		}
-		elseif ($key == 'lot-step') {
-			if ($value == NULL) {
-				$err[$key] = 'Укажите шаг ставки';
-			} elseif (!ctype_digit($value) OR $value <= 0) { 
-				$err[$key] = 'Введите целое число больше 0';
-			}
-		}
-		elseif ($key == 'lot-date') {
-			if(empty($value)) {
-				$err[$key] = 'Выберите дату завершения';
-			} else {
-				$dateUnix = strtotime($value);
-				$correctDateUnix = time() + 86400;
-				if ($dateUnix < $correctDateUnix) {
-					$err[$key] = 'Минимальная продолжительность аукциона 24 часа';
-				}
-			}
-		}
-	}
-	if ($fileinfo['name'] == NULL) {
-		$err['image-lot'] = 'Выберите изображение лота';
-	} else {
-		$file_name = $fileinfo['name'];
-		$file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
-		if (!in_array($file_extension, ['jpeg', 'jpg', 'png'], true) OR !in_array($fileinfo['type'], ['image/jpeg', 'image/png'], true)) {
-			$err['image-lot'] = 'Выберите изображение в формате jpeg или png';
-		}
-
-		if ($fileinfo['size'] > 200000) {
-			$err['image-lot'] = "Максимальный размер файла: 200Кб";
-		}
-	}
-	return $err;
+//выполнение подготовленного запроса
+function getSqlPrepare($db, $sql, $param, $types = "") {
+	$types = $types ?: str_repeat("s", count($param));
+	$stmt = $db->prepare($sql);
+	$stmt->bind_param($types, ...$param);
+	$stmt->execute();
+	return $stmt;
 }
