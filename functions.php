@@ -233,3 +233,43 @@ function checkField($param, $fileinfo) {
 	}
 	return $err;
 }
+
+//выполнение подготовленного запроса
+function getSqlPrepare($db, $sql, $param, $types = "") {
+	$types = $types ?: str_repeat("s", count($param));
+	$stmt = $db->prepare($sql);
+	$stmt->bind_param($types, ...$param);
+	$stmt->execute();
+	return $stmt;
+}
+
+//Валидация формы регистрации
+function checkFieldReg($param) {
+	$err = [];
+	foreach ($param as $key => $value) {
+		if ($key == 'email') {
+			if(empty($value)) {
+				$err[$key] = 'Введите email';
+			} elseif(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+				$err[$key] = 'Введен некорректный email';
+			}
+		}
+		elseif ($key == 'password') {
+			if(empty($value)) {
+				$err[$key] = 'Укажите пароль';
+			}
+		}
+
+		elseif ($key == 'name') {
+			if(empty($value)) {
+				$err[$key] = 'Введите имя';
+			}
+		}
+		elseif ($key == 'message') {
+			if(empty($value)) {
+				$err[$key] = 'Укажите свои контактные данные';
+			}
+		}
+	}
+	return $err;
+}

@@ -11,10 +11,8 @@ if (!empty($_POST)) {
 		$file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 		$sql = "INSERT INTO lots SET name_lot = ?, description_lot = ?, img_url = ?, start_price = ?, end_date = ?, 
 		step_bet = ?, cat_id = ?, user_id = ?";
-		$stmt = $db_connect->prepare($sql);
-		$stmt->bind_param("ssssssss", $_POST['lot-name'], $_POST['message'], $file_extension, $_POST['lot-rate'], $_POST['lot-date'], 
-			$_POST['lot-step'], $_POST['category'], $id_user);
-		$stmt->execute();
+		getSqlPrepare($db_connect, $sql, [$_POST['lot-name'], $_POST['message'], $file_extension, $_POST['lot-rate'], $_POST['lot-date'], 
+			$_POST['lot-step'], $_POST['category'], $id_user]);
 		$last_id = mysqli_insert_id($db_connect);
 		$file_name = $last_id . "." . $file_extension;
 		$file_path = __DIR__ . '/uploads/';
