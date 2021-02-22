@@ -3,6 +3,36 @@ require 'init.php';
 $err = [];
 
 if (!empty($_POST)) {
+	//Валидация формы регистрации
+	function checkFieldReg($param) {
+		$err = [];
+		foreach ($param as $key => $value) {
+			if ($key == 'email') {
+				if(empty($value)) {
+					$err[$key] = 'Введите email';
+				} elseif(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+					$err[$key] = 'Введен некорректный email';
+				}
+			}
+			elseif ($key == 'password') {
+				if(empty($value)) {
+					$err[$key] = 'Укажите пароль';
+				}
+			}
+
+			elseif ($key == 'name') {
+				if(empty($value)) {
+					$err[$key] = 'Введите имя';
+				}
+			}
+			elseif ($key == 'message') {
+				if(empty($value)) {
+					$err[$key] = 'Укажите свои контактные данные';
+				}
+			}
+		}
+		return $err;
+	}
 	$err = checkFieldReg(['email' => $_POST['email'], 'password' => $_POST['password'], 'name' => $_POST['name'], 
 		'message' => $_POST['message']]);
 
