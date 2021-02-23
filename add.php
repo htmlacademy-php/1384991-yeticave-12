@@ -1,5 +1,10 @@
 <?php 
 require 'init.php';
+if (!isset($_SESSION['user'])) {
+	http_response_code(403);
+  	header("Location: /");
+  	exit();
+}
 $err = [];
 if (!empty($_POST)) {
 	//Валидация формы добавления лота
@@ -67,13 +72,12 @@ if (!empty($_POST)) {
 		'lot-rate' => $_POST['lot-rate'], 'lot-step' => $_POST['lot-step'], 'lot-date' => $_POST['lot-date']], 
 		$_FILES['image-lot']);
 	if ($err == false) {
-		$id_user = 1;
 		$file_name = $_FILES['image-lot']['name'];
 		$file_extension = pathinfo($file_name, PATHINFO_EXTENSION);
 		$sql = "INSERT INTO lots SET name_lot = ?, description_lot = ?, img_url = ?, start_price = ?, end_date = ?, 
 		step_bet = ?, cat_id = ?, user_id = ?";
 		getSqlPrepare($db_connect, $sql, [$_POST['lot-name'], $_POST['message'], $file_extension, $_POST['lot-rate'], $_POST['lot-date'], 
-			$_POST['lot-step'], $_POST['category'], $id_user]);
+			$_POST['lot-step'], $_POST['category'], $_SESSION['user']]);
 		$last_id = mysqli_insert_id($db_connect);
 		$file_name = $last_id . "." . $file_extension;
 		$file_path = __DIR__ . '/uploads/';

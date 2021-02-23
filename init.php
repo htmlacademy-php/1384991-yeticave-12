@@ -1,5 +1,6 @@
 <?php 
 require 'functions.php';
+session_start();
 if (!file_exists('config.php'))
  {
      $msg = 'Создайте файл config.php на основе config.sample.php и внесите туда настройки сервера MySQL';
