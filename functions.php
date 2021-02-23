@@ -160,11 +160,20 @@ function get_expiry_time ($date) {
 	return $diff_array;
 }
 //Функция вывода 404
-function get_404 ($categories_arr, $user_name, $is_auth) {
+function get_404 ($categories_arr) {
 	http_response_code(404);
-	$get_404 = include_template('404.php', ['page_title' => 'Страница не существует', 'categories_arr' => $categories_arr]);
+	$get_404 = include_template('404.php');
 	$layout_content = include_template('layout.php', ['page_content' => $get_404, 'page_title' => 'Страница не существует', 
-		'user_name' => $user_name, 'is_auth' => $is_auth, 'categories_arr' => $categories_arr]);
+		'categories_arr' => $categories_arr]);
+	print $layout_content;
+	exit;
+}
+//Функция вывода 403
+function get_403 ($categories_arr) {
+	http_response_code(403);
+	$get_403 = include_template('403.php');
+	$layout_content = include_template('layout.php', ['page_content' => $get_403, 'page_title' => 'Доступ запрещен', 
+		'categories_arr' => $categories_arr]);
 	print $layout_content;
 	exit;
 }
