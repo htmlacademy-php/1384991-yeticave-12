@@ -1,7 +1,6 @@
 <?php
 require 'init.php';
 if (isset($_SESSION['user'])) {
-	http_response_code(403);
   	header("Location: /");
   	exit();
 }
