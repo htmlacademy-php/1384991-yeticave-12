@@ -6,31 +6,33 @@ if (isset($_SESSION['user'])) {
 //Валидация формы входа
 $err = [];
 if (!empty($_POST)) {
-	foreach ($_POST as $key => $value) {
-		if ($key == 'email') {
-			if(empty($value)) {
-				$err[$key] = 'Введите email';
-			} elseif(!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-				$err[$key] = 'Введен некорректный email';
+	if (!empty($_POST['email']) AND !empty($_POST['password'])) {
+		if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+			$err['email'] = 'Введен некорректный email';
+		} else {
+			$checkEmail = "SELECT * FROM users WHERE user_email = ?";
+			$stmt = getSqlPrepare($db_connect, $checkEmail, [$_POST['email']]);
+			$result = $stmt->get_result();
+			$checkArr = $result->fetch_assoc();
+			if (!isset($checkArr['user_email'])) {
+				$err['email'] = 'Email не найден';
+			} else {
+				if (!password_verify($_POST['password'], $checkArr['password'])) {
+					$err['password'] = 'Пароль введен неверно!';
+				} else {
+					$_SESSION['user'] = $checkArr;
+					header("Location: /");
+					exit;
+				}
 			}
-		} elseif ($key == 'password') {
-			if(empty($value)) {
-				$err[$key] = 'Укажите пароль';
-			}
-		}
-	}
-	$checkEmail = "SELECT * FROM users WHERE user_email = ?";
-	$stmt = getSqlPrepare($db_connect, $checkEmail, [$_POST['email']]);
-	$result = $stmt->get_result();
-	$checkArr = $result->fetch_assoc();
-	if (!isset($checkArr['user_email'])) {
-		$err['email'] = 'Email введен неверно';
-	} elseif (!password_verify($_POST['password'], $checkArr['password'])) {
-		$err['password'] = 'Пароль введен неверно!';
+		} 
 	} else {
-		$_SESSION['user'] = $checkArr;
-		header("Location: /");
-	  	exit;
+		if (empty($_POST['email'])) {
+			$err['email'] = 'Введите Email';
+		} 
+		if (empty($_POST['password'])) {
+			$err['password'] = 'Введите пароль';
+		}
 	}
 }
 $page_content = include_template('login_template.php', ['err' => $err]);
