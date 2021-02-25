@@ -13,5 +13,5 @@ $lots_arr = $result_lots->fetch_all(MYSQLI_ASSOC);
 
 $page_content = include_template('main.php', ['categories_arr' => $categories_arr, 'lots_arr' => $lots_arr]);
 
-$layout_content = include_template('layout.php', ['page_content' => $page_content, 'categories_arr' => $categories_arr, 'user_name' => $user_name, 'page_title' => 'Главная', 'is_auth' => $is_auth]);
+$layout_content = include_template('layout.php', ['page_content' => $page_content, 'categories_arr' => $categories_arr, 'page_title' => 'Главная']);
 print $layout_content;

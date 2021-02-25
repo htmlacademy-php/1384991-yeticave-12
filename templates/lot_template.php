@@ -28,6 +28,7 @@
                 Мин. ставка <span><?=price_format(clear_spec($row_lot['current_price'] + $row_lot['step_bet']))?></span>
               </div>
             </div>
+            <?php if(isset($_SESSION['user'])): ?>
             <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
               <p class="lot-item__form-item form__item form__item--invalid">
                 <label for="cost">Ваша ставка</label>
@@ -36,6 +37,7 @@
               </p>
               <button type="submit" class="button">Сделать ставку</button>
             </form>
+            <?php endif; ?>
           </div>
           <div class="history">
             <h3>История ставок (<span><?=clear_spec(count($list_bets))?></span>)</h3>
