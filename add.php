@@ -1,7 +1,7 @@
 <?php 
 require 'init.php';
 if (!isset($_SESSION['user'])) {
-  	get_403($categories_arr);
+  	getErrorPage(403, $categories_arr);
 }
 $err = [];
 if (!empty($_POST)) {

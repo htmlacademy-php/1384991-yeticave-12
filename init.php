@@ -10,8 +10,6 @@ require 'config.php';
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $db_connect = new mysqli($db_host, $db_username, $db_password, $db_database);
 $db_connect->set_charset($db_charset);
-$is_auth = rand(0, 1);
-$user_name = 'Oleh';
 
 // запрос на получение списка категорий
 $get_categories_sql = "SELECT * FROM categories";

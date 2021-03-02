@@ -10,7 +10,6 @@ $get_lots_sql = "SELECT lots.id, name_lot, end_date, start_price, img_url, max(b
     ORDER BY lots.add_date DESC";
 $result_lots = $db_connect->query($get_lots_sql);
 $lots_arr = $result_lots->fetch_all(MYSQLI_ASSOC);
-
 $page_content = include_template('main.php', ['categories_arr' => $categories_arr, 'lots_arr' => $lots_arr]);
 
 $layout_content = include_template('layout.php', ['page_content' => $page_content, 'categories_arr' => $categories_arr, 'page_title' => 'Главная']);

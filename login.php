@@ -1,25 +1,9 @@
 <?php
 require 'init.php';
 if (isset($_SESSION['user'])) {
-  	get_403($categories_arr);
+  	getErrorPage(403, $categories_arr);
 }
 //Валидация формы входа
-
-
-/*
-1. Валидируем входящие данные
-1.1 Проверяем на ошибки поля
-1.1.1 Если пустой маил - заполните поле
-1.1.2 Если не пустой маил - валидируем поле
-1.1.3 Если нет @ - некорректный маил
-1.1.4 Если пустой пароль - заполните поле
-
-2 Если ошибок нет - выполняем запрос в базу
-2.1 Если имэйл не найден - такого пользователя не существует
-2.1.1 Если найден - сравниваем пароль с паролем в базе
-2.1.2 Если не совпал - неверный пароль
-2.1.3 Если совпал - авторизируем
-*/
 $err = [];
 if (!empty($_POST)) {
 	if (empty($_POST['email'])) {
@@ -49,5 +33,5 @@ if (!empty($_POST)) {
 $page_content = include_template('login_template.php', ['err' => $err]);
 
 $layout_content = include_template('layout.php', ['page_content' => $page_content, 'page_title' => 'Вход на сайт', 
-	'categories_arr' => $categories_arr, 'user_name' => $user_name, 'is_auth' => $is_auth]);
+	'categories_arr' => $categories_arr]);
 print $layout_content;
