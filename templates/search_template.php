@@ -1,6 +1,6 @@
 <main class="container">
   <section class="lots">
-    <h2>Результаты поиска по запросу «<span><?=clear_spec($_GET['search']) ?></span>»</h2>
+    <h2><?php if (!$searchResult): ?>По вашему запросу ничего не найдено<?php else: ?>Результаты поиска по запросу «<span><?=clear_spec($_GET['search']) ?></span>»<?php endif; ?></h2>
     <ul class="lots__list">
       <?php foreach ($searchResult as $item): ?>
         <?php list($hours, $minuts) = get_expiry_time($item['end_date']); ?>

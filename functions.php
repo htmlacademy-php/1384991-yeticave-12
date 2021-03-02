@@ -161,15 +161,13 @@ function get_expiry_time ($date) {
 }
 //Функция вывода страниц с ошибкой 
 function getErrorPage ($err_code, $categories_arr) {
-	if ($err_code == 404) {
-		http_response_code(404);
-		$err_code = include_template('404.php');
-	} elseif ($err_code == 403) {
-		http_response_code(403);
-		$err_code = include_template('403.php');
-	}
-	
-	$layout_content = include_template('layout.php', ['page_content' => $err_code, 'page_title' => 'Страница не существует', 
+	http_response_code($err_code);
+	$err_temp = include_template("$err_code.php");
+	$err_titles = [
+        '403' => 'Доступ запрещен',
+        '404' => 'Страница не существует',
+    ];
+	$layout_content = include_template('layout.php', ['page_content' => $err_temp, 'page_title' => $err_titles[$err_code], 
 		'categories_arr' => $categories_arr]);
 	print $layout_content;
 	exit;
