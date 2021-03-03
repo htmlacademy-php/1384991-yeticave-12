@@ -2,7 +2,7 @@
 require 'init.php';
 
 if (!isset($_GET['id'])) {
-	get_404($categories_arr);
+	getErrorPage(404, $categories_arr);
 }
 // запрос на получение информации о лоте
 $get_lot_sql = "SELECT lots.*, COALESCE (max(bets.bet_price), lots.start_price) AS current_price, categories.cat_name FROM lots 
@@ -15,7 +15,7 @@ $stmt_lot = getSqlPrepare($db_connect, $get_lot_sql, [$_GET['id']]);
 $result_lot = $stmt_lot->get_result();
 $row_lot = $result_lot->fetch_assoc();
 if (!$row_lot) {
-	get_404($categories_arr, $user_name, $is_auth);
+	getErrorPage(404, $categories_arr);
 }
 
 // запрос на получение списка ставок

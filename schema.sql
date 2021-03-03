@@ -41,3 +41,6 @@ CREATE TABLE users (
 	password VARCHAR(255),
 	contacts TEXT
 );
+
+/* Добавляем индекс для полнотекстового поиска */
+CREATE FULLTEXT INDEX lots_ft_search ON lots(name_lot, description_lot);

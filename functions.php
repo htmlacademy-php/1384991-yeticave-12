@@ -159,31 +159,30 @@ function get_expiry_time ($date) {
 	$diff_array = [$diff_hours, $diff_min];
 	return $diff_array;
 }
-//Функция вывода 404
-function get_404 ($categories_arr) {
-	http_response_code(404);
-	$get_404 = include_template('404.php');
-	$layout_content = include_template('layout.php', ['page_content' => $get_404, 'page_title' => 'Страница не существует', 
-		'categories_arr' => $categories_arr]);
-	print $layout_content;
-	exit;
-}
-//Функция вывода 403
-function get_403 ($categories_arr) {
-	http_response_code(403);
-	$get_403 = include_template('403.php');
-	$layout_content = include_template('layout.php', ['page_content' => $get_403, 'page_title' => 'Доступ запрещен', 
+//Функция вывода страниц с ошибкой 
+function getErrorPage ($err_code, $categories_arr) {
+	http_response_code($err_code);
+	$err_temp = include_template("$err_code.php");
+	$err_titles = [
+        '403' => 'Доступ запрещен',
+        '404' => 'Страница не существует',
+    ];
+	$layout_content = include_template('layout.php', ['page_content' => $err_temp, 'page_title' => $err_titles[$err_code], 
 		'categories_arr' => $categories_arr]);
 	print $layout_content;
 	exit;
 }
 //Автозаполнение поля при ошибке валидации
-function getPostVal($name) {
-    return $_POST[$name] ?? "";
+function getPostVal ($name, $method = '') {
+	if (empty($method)) {
+		return $_POST[$name] ?? "";
+	} elseif ($method == 'get') {
+		return $_GET[$name] ?? "";
+	}
 }
 
 //выполнение подготовленного запроса
-function getSqlPrepare($db, $sql, $param, $types = "") {
+function getSqlPrepare ($db, $sql, $param, $types = "") {
 	$types = $types ?: str_repeat("s", count($param));
 	$stmt = $db->prepare($sql);
 	$stmt->bind_param($types, ...$param);
