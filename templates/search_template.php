@@ -1,6 +1,7 @@
 <main class="container">
   <section class="lots">
-    <h2><?php if (!$searchResult): ?>По вашему запросу ничего не найдено<?php else: ?>Результаты поиска по запросу «<span><?=clear_spec($_GET['search']) ?></span>»<?php endif; ?></h2>
+    <h2><?php if (empty($_GET['search'])): ?>Вы ввели пустой запрос<?php elseif (!$searchResult): ?>По вашему запросу ничего не найдено<?php else: ?>Результаты поиска по запросу «<span><?=clear_spec($_GET['search']) ?></span>»<?php endif; ?></h2>
+    <?php if (!empty($_GET['search'])): ?>
     <ul class="lots__list">
       <?php foreach ($searchResult as $item): ?>
         <?php list($hours, $minuts) = get_expiry_time($item['end_date']); ?>
@@ -28,6 +29,7 @@
         </li>
       <?php endforeach; ?>
     </ul>
+  <?php endif; ?>
   </section>
   <ul class="pagination-list">
     <li class="pagination-item pagination-item-prev"><a>Назад</a></li>

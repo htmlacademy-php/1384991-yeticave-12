@@ -10,7 +10,8 @@ if (!empty($_GET['search'])) {
 	$searchResult = $result->fetch_all(MYSQLI_ASSOC);
 	$find = $_GET['search'];
 } else {
-	getErrorPage(404, $categories_arr);
+	$searchResult = NULL;
+	$find = NULL;
 }
 
 $page_content = include_template('search_template.php', ['searchResult' => $searchResult]);
