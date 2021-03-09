@@ -4,7 +4,7 @@
       <div class="form__container-two">
         <div class="form__item <?php if($err['lot-name']): ?> form__item--invalid<?php endif; ?>"> <!-- form__item--invalid -->
           <label for="lot-name">Наименование <sup>*</sup></label>
-          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?=clear_spec(getPostVal('lot-name')); ?>">
+          <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?=clear_spec(getFillVal('lot-name')); ?>">
           <span class="form__error"><?=clear_spec($err['lot-name']); ?></span>
         </div>
         <div class="form__item <?php if($err['category']): ?>form__item--invalid<?php endif; ?>">
@@ -12,7 +12,7 @@
           <select id="category" name="category">
             <option value="">Выберите категорию</option>
             <?php foreach ($categories_arr as $item): ?>
-	        	<option value="<?=clear_spec($item['id'])?>" <?php if(getPostVal('category') == $item['id']): ?>selected<?php endif; ?>><?=clear_spec($item['cat_name'])?></option>
+	        	<option value="<?=clear_spec($item['id'])?>" <?php if(getFillVal('category') == $item['id']): ?>selected<?php endif; ?>><?=clear_spec($item['cat_name'])?></option>
         	<?php endforeach; ?>
           </select>
           <span class="form__error"><?=clear_spec($err['category']); ?></span>
@@ -20,7 +20,7 @@
       </div>
       <div class="form__item form__item--wide <?php if($err['message']): ?>form__item--invalid<?php endif; ?>">
         <label for="message">Описание <sup>*</sup></label>
-        <textarea id="message" name="message" placeholder="Напишите описание лота"><?=clear_spec(getPostVal('message')); ?></textarea>
+        <textarea id="message" name="message" placeholder="Напишите описание лота"><?=clear_spec(getFillVal('message')); ?></textarea>
         <span class="form__error"><?=clear_spec($err['message']); ?></span>
       </div>
       <div class="form__item form__item--file <?php if($err['image-lot']): ?>form__item--invalid<?php endif; ?>">
@@ -36,17 +36,17 @@
       <div class="form__container-three">
         <div class="form__item form__item--small <?php if($err['lot-rate']): ?>form__item--invalid<?php endif; ?>">
           <label for="lot-rate">Начальная цена <sup>*</sup></label>
-          <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value="<?=clear_spec(getPostVal('lot-rate')); ?>">
+          <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value="<?=clear_spec(getFillVal('lot-rate')); ?>">
           <span class="form__error"><?=clear_spec($err['lot-rate']); ?></span>
         </div>
         <div class="form__item form__item--small <?php if($err['lot-step']): ?>form__item--invalid<?php endif; ?>">
           <label for="lot-step">Шаг ставки <sup>*</sup></label>
-          <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?=clear_spec(getPostVal('lot-step')); ?>">
+          <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?=clear_spec(getFillVal('lot-step')); ?>">
           <span class="form__error"><?=clear_spec($err['lot-step']); ?></span>
         </div>
         <div class="form__item <?php if($err['lot-date']): ?>form__item--invalid<?php endif; ?>">
           <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
-          <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" value="<?=clear_spec(getPostVal('lot-date')); ?>">
+          <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="Введите дату в формате ГГГГ-ММ-ДД" value="<?=clear_spec(getFillVal('lot-date')); ?>">
           <span class="form__error"><?=clear_spec($err['lot-date']); ?></span>
         </div>
       </div>

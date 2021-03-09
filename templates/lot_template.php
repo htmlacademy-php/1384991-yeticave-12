@@ -25,15 +25,15 @@
                 <span class="lot-item__cost"><?=price_format(clear_spec($row_lot['current_price']))?></span>
               </div>
               <div class="lot-item__min-cost">
-                Мин. ставка <span><?=price_format(clear_spec($row_lot['current_price'] + $row_lot['step_bet']))?></span>
+                Мин. ставка <span><?=price_format(clear_spec($min_bet))?></span>
               </div>
             </div>
             <?php if(isset($_SESSION['user'])): ?>
-            <form class="lot-item__form" action="https://echo.htmlacademy.ru" method="post" autocomplete="off">
-              <p class="lot-item__form-item form__item form__item--invalid">
+            <form class="lot-item__form" action="/lot.php?id=<?=$row_lot['id']?>" method="post" autocomplete="off">
+              <p class="lot-item__form-item <?php if (count($err)): ?>form__item form__item--invalid<?php endif; ?>">
                 <label for="cost">Ваша ставка</label>
-                <input id="cost" type="text" name="cost" placeholder="<?=price_format(clear_spec($row_lot['current_price'] + $row_lot['step_bet']))?>">
-                <span class="form__error">Введите сумму ставки</span>
+                <input id="cost" type="text" name="cost" placeholder="<?=price_format(clear_spec($min_bet))?>">
+                <span class="form__error"><?=clear_spec($err['cost'])?></span>
               </p>
               <button type="submit" class="button">Сделать ставку</button>
             </form>

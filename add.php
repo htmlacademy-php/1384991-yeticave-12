@@ -75,7 +75,7 @@ if (!empty($_POST)) {
 		$sql = "INSERT INTO lots SET name_lot = ?, description_lot = ?, img_url = ?, start_price = ?, end_date = ?, 
 		step_bet = ?, cat_id = ?, user_id = ?";
 		getSqlPrepare($db_connect, $sql, [$_POST['lot-name'], $_POST['message'], $file_extension, $_POST['lot-rate'], $_POST['lot-date'], 
-			$_POST['lot-step'], $_POST['category'], $_SESSION['user']]);
+			$_POST['lot-step'], $_POST['category'], $_SESSION['user']['id']]);
 		$last_id = mysqli_insert_id($db_connect);
 		$file_name = $last_id . "." . $file_extension;
 		$file_path = __DIR__ . '/uploads/';
@@ -87,5 +87,5 @@ if (!empty($_POST)) {
 $page_content = include_template('add_template.php', ['categories_arr' => $categories_arr, 'err' => $err]);
 
 $layout_content = include_template('layout.php', ['page_content' => $page_content, 'page_title' => 'Добавление лота', 
-	'categories_arr' => $categories_arr, 'user_name' => $user_name, 'is_auth' => $is_auth]);
+	'categories_arr' => $categories_arr]);
 print $layout_content;

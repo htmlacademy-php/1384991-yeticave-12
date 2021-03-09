@@ -16,7 +16,7 @@
             <img src="../img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <form class="main-header__search" method="get" action="/search.php" autocomplete="off">
-            <input type="search" name="search" placeholder="Поиск лота" value="<?=clear_spec(getPostVal('search', 'get')); ?>">
+            <input type="search" name="search" placeholder="Поиск лота" value="<?=clear_spec(getFillVal('search', 'get')); ?>">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
         <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
@@ -24,7 +24,7 @@
             <?php if (isset($_SESSION['user'])): ?>
                 <div class="user-menu__logged">
                     <p><?=clear_spec($_SESSION['user']['user_name'])?></p>
-                    <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
+                    <a class="user-menu__bets" href="/my-bets.php">Мои ставки</a>
                     <a class="user-menu__logout" href="/logout.php">Выход</a>
                 </div>
             <?php else: ?>

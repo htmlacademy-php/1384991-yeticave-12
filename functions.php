@@ -150,7 +150,7 @@ function clear_spec ($var) {
 	return htmlspecialchars($var, ENT_QUOTES);
 }
 //Функция подсчета оставшегося времени
-function get_expiry_time ($date) {
+/*function get_expiry_time ($date) {
 	$cur_date = time();
 	$exp_date = strtotime($date);
 	$diff = $exp_date - $cur_date;
@@ -158,6 +158,37 @@ function get_expiry_time ($date) {
 	$diff_min = str_pad(($diff / 60) % 60, 2, "0", STR_PAD_LEFT);
 	$diff_array = [$diff_hours, $diff_min];
 	return $diff_array;
+}*/
+function get_expiry_time ($date) {
+    $cur_date = time();
+    $exp_date = strtotime($date);
+    $diff = $exp_date - $cur_date;
+    $diff_array = [];
+    $diff_array[] = str_pad(floor($diff / 3600), 2, "0", STR_PAD_LEFT);
+    $diff = $diff % 3600;
+    $diff_array[] = str_pad(floor($diff / 60), 2, "0", STR_PAD_LEFT);
+    $diff_array[] = str_pad(($diff % 60), 2, "0", STR_PAD_LEFT);
+    return $diff_array;
+}
+//Функция подсчета времени с момента публикации
+function get_pub_date ($date) {
+    $cur_date = time();
+    $pub_date = strtotime($date);
+    $diff = $cur_date - $pub_date;
+    $pub_date = '';
+    if ($diff <= 3600) {
+        $diff_date = str_pad(floor(abs($diff / 60)), 1, "0", STR_PAD_LEFT);
+        $pub_date = $diff_date . get_noun_plural_form($diff_date, ' минуту', ' минуты', ' минут') . " назад";
+    } elseif ($diff > 3600 AND $diff <= 86400) {
+        $diff_date = str_pad(floor(abs($diff / 60 / 60)), 1, "0", STR_PAD_LEFT);  
+        $pub_date = $diff_date . get_noun_plural_form($diff_date, ' час', ' часа', ' часов') . " назад";
+    } elseif ($diff > 86400 AND $diff <= 604800) {
+        $diff_date = str_pad(floor(abs($diff / 60 / 60 / 24)), 1, "0", STR_PAD_LEFT); 
+        $pub_date = $diff_date . get_noun_plural_form($diff_date, ' день', ' дня', ' дней') . " назад";
+    } elseif ($diff > 2678400) {
+        $pub_date = "Более месяца назад";
+    }
+    return $pub_date;
 }
 //Функция вывода страниц с ошибкой 
 function getErrorPage ($err_code, $categories_arr) {
@@ -173,7 +204,7 @@ function getErrorPage ($err_code, $categories_arr) {
 	exit;
 }
 //Автозаполнение поля при ошибке валидации
-function getPostVal ($name, $method = '') {
+function getFillVal ($name, $method = '') {
 	if (empty($method)) {
 		return $_POST[$name] ?? "";
 	} elseif ($method == 'get') {

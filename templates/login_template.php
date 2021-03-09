@@ -3,7 +3,7 @@
       <h2>Вход</h2>
       <div class="form__item <?php if($err['email']): ?> form__item--invalid<?php endif; ?>"> <!-- form__item--invalid -->
         <label for="email">E-mail <sup>*</sup></label>
-        <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=clear_spec(getPostVal('email')); ?>">
+        <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=clear_spec(getFillVal('email')); ?>">
         <span class="form__error"><?=clear_spec($err['email']); ?></span>
       </div>
       <div class="form__item form__item--last <?php if($err['password']): ?> form__item--invalid<?php endif; ?>">
