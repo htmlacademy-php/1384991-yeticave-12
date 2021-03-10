@@ -1198,8 +1198,9 @@ input:invalid .form__error{
 }
 
 .rates__timer .timer {
-  width: 82px;
+  width: 90px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .rates__timer .timer--win {
@@ -1216,6 +1217,13 @@ input:invalid .form__error{
   width: 135px;
   font-size: 13px;
   font-weight: 700;
+}
+
+.main_price {
+  width: 135px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #2E8B57;
 }
 
 .rates__time {

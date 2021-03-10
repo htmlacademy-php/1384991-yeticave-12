@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?=clear_spec($page_title); ?></title>
+    <title><?=my_htmlspecialchars($page_title); ?></title>
     <link href="../css/normalize.min.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/flatpickr.min.css" rel="stylesheet">
@@ -16,15 +16,15 @@
             <img src="../img/logo.svg" width="160" height="39" alt="Логотип компании YetiCave">
         </a>
         <form class="main-header__search" method="get" action="/search.php" autocomplete="off">
-            <input type="search" name="search" placeholder="Поиск лота" value="<?=clear_spec(getPostVal('search', 'get')); ?>">
+            <input type="search" name="search" placeholder="Поиск лота" value="<?=my_htmlspecialchars(getFillVal('search', 'get')); ?>">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
         <a class="main-header__add-lot button" href="/add.php">Добавить лот</a>
         <nav class="user-menu">
             <?php if (isset($_SESSION['user'])): ?>
                 <div class="user-menu__logged">
-                    <p><?=clear_spec($_SESSION['user']['user_name'])?></p>
-                    <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
+                    <p><?=my_htmlspecialchars($_SESSION['user']['user_name'])?></p>
+                    <a class="user-menu__bets" href="/my-bets.php">Мои ставки</a>
                     <a class="user-menu__logout" href="/logout.php">Выход</a>
                 </div>
             <?php else: ?>
@@ -45,7 +45,7 @@
       <ul class="nav__list container">
         <?php foreach ($categories_arr as $item): ?>
         <li class="nav__item">
-          <a href="all-lots.html"><?=clear_spec($item['cat_name'])?></a>
+          <a href="all-lots.html"><?=my_htmlspecialchars($item['cat_name'])?></a>
         </li>
         <?php endforeach; ?>
       </ul>
@@ -60,7 +60,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach($categories_arr as $item): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?=clear_spec($item['cat_name']);?></a>
+                    <a href="pages/all-lots.html"><?=my_htmlspecialchars($item['cat_name']);?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
