@@ -6,34 +6,34 @@
     <tr class="rates__item <?php if ($hours <= 0 && $minuts <= 0): ?>rates__item--end<?php endif; ?>">
       <td class="rates__info">
         <div class="rates__img">
-          <img src="/uploads/<?=clear_spec($item['lot_id'] . '.' . $item['img_url'])?>" width="54" height="40" alt="$item['name_lot']">
+          <img src="/uploads/<?=replace_specialchars($item['lot_id'] . '.' . replace_specialchars($item['img_url']))?>" width="54" height="40" alt="$item['name_lot']">
         </div>
-        <h3 class="rates__title"><a href="lot.php?id=<?=clear_spec($item['lot_id'])?>"><?=clear_spec($item['name_lot'])?></a></h3>
+        <h3 class="rates__title"><a href="lot.php?id=<?=replace_specialchars($item['lot_id'])?>"><?=replace_specialchars($item['name_lot'])?></a></h3>
       </td>
       <td class="rates__category">
-        <?=clear_spec($item['cat_name'])?>
+        <?=replace_specialchars($item['cat_name'])?>
       </td>
       <td class="rates__timer">
         <div class="timer <?php if ($hours <= 0 && $minuts <= 0): ?>timer--end<?php elseif ($hours < 1): ?>timer--finishing<?php endif; ?>">
           <?php if($hours <= 0 && $minuts <= 0): ?>
             Торги окончены
             <?php else: ?>
-            <?=clear_spec($hours . ":" . $minuts . ":" . $seconds); ?>
+            <?=replace_specialchars($hours . ":" . $minuts . ":" . $seconds); ?>
           <?php endif; ?>
         </div>
       </td>
       <td class="rates__price">
-        <?=price_format(clear_spec($item['current_price']))?>
+        <?=replace_specialchars(price_format($item['current_price']))?>
       </td>
       <td class="main_price">
-        <?php if (clear_spec($item['user_bet']) == clear_spec($item['current_price'])): ?>
+        <?php if ($item['user_bet'] == $item['current_price']): ?>
           Вы лидер
         <?php else: ?>
-          <?=price_format(clear_spec($item['user_bet']))?>
+          <?=replace_specialchars(price_format($item['user_bet']))?>
         <?php endif; ?>
       </td>
       <td class="rates__time">
-        <?=get_pub_date(clear_spec($item['add_date']))?>
+        <?=replace_specialchars(get_pub_date($item['add_date']))?>
       </td>
     </tr>
   <?php endforeach; ?>
