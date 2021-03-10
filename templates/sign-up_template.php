@@ -19,7 +19,7 @@
       </div>
       <div class="form__item <?php if($err['message']): ?> form__item--invalid<?php endif; ?>">
         <label for="message">Контактные данные <sup>*</sup></label>
-        <textarea id="message" name="message" placeholder="Напишите как с вами связаться" value="<?=clear_spec(getFillVal('message')); ?>"></textarea>
+        <textarea id="message" name="message" placeholder="Напишите как с вами связаться"><?=clear_spec(getFillVal('message')); ?></textarea>
         <span class="form__error"><?=clear_spec($err['message']); ?></span>
       </div>
       <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>

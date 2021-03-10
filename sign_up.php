@@ -38,5 +38,5 @@ if (!empty($_POST)) {
 $page_content = include_template('sign-up_template.php', ['err' => $err]);
 
 $layout_content = include_template('layout.php', ['page_content' => $page_content, 'page_title' => 'Регистрация нового пользователя', 
-	'categories_arr' => $categories_arr, 'user_name' => $user_name, 'is_auth' => $is_auth]);
+	'categories_arr' => $categories_arr]);
 print $layout_content;

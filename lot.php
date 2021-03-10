@@ -14,28 +14,11 @@ GROUP BY lots.id";
 $stmt_lot = getSqlPrepare($db_connect, $get_lot_sql, [$_GET['id']]);
 $result_lot = $stmt_lot->get_result();
 $row_lot = $result_lot->fetch_assoc();
-$min_bet = $row_lot['current_price'] + $row_lot['step_bet'];
+$min_bet = '';
 if (!$row_lot) {
 	getErrorPage(404, $categories_arr);
 }
-
-// запрос на получение списка ставок
-$get_bets_sql = "SELECT bets.*, users.user_name FROM bets
-JOIN users ON users.id = bets.user_id
-WHERE lot_id=?
-ORDER BY add_date DESC";
-$stmt_bets = getSqlPrepare($db_connect, $get_bets_sql, [$_GET['id']]);
-$result_bets = $stmt_bets->get_result();
-$list_bets = $result_bets->fetch_all(MYSQLI_ASSOC);
-// добавление ставки
-/*
-	1. Проверяем, залогинен ли пользователь
-		1.1. Если да, убедиться, что заполнено поле «ваша сумма»
-	2. Проверить значение поля «ваша сумма»
-		- целое положительное число;
-		- значение должно быть больше или равно, чем текущая цена лота + шаг ставки
-	3. Добавить ставку в таблицу ставок с привязкой к лоту
-*/
+$min_bet = $row_lot['current_price'] + $row_lot['step_bet'];
 
 $err = [];
 if (isset($_SESSION['user'])) {
@@ -54,6 +37,16 @@ if (isset($_SESSION['user'])) {
 		}
 	}
 }
+
+// запрос на получение списка ставок
+$get_bets_sql = "SELECT bets.*, users.user_name FROM bets
+JOIN users ON users.id = bets.user_id
+WHERE lot_id=?
+ORDER BY add_date DESC";
+$stmt_bets = getSqlPrepare($db_connect, $get_bets_sql, [$_GET['id']]);
+$result_bets = $stmt_bets->get_result();
+$list_bets = $result_bets->fetch_all(MYSQLI_ASSOC);
+// добавление ставки
 
 $page_content = include_template('lot_template.php', ['row_lot' => $row_lot, 'list_bets' => $list_bets, 'categories_arr' => $categories_arr, 'min_bet' => $min_bet, 'err' => $err]);
 
