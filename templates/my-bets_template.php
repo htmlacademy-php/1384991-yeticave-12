@@ -6,7 +6,7 @@
     <tr class="rates__item <?php if ($hours <= 0 && $minuts <= 0): ?>rates__item--end<?php endif; ?>">
       <td class="rates__info">
         <div class="rates__img">
-          <img src="/uploads/<?=replace_specialchars($item['lot_id'] . '.' . replace_specialchars($item['img_url']))?>" width="54" height="40" alt="$item['name_lot']">
+          <img src="/uploads/<?=replace_specialchars($item['lot_id'] . '.' . replace_specialchars($item['img_url']))?>" width="54" height="40" alt="<?=replace_specialchars($item['name_lot']) ?>">
         </div>
         <h3 class="rates__title"><a href="lot.php?id=<?=replace_specialchars($item['lot_id'])?>"><?=replace_specialchars($item['name_lot'])?></a></h3>
       </td>
