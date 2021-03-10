@@ -146,7 +146,7 @@ function price_format ($price) {
 	return number_format(ceil($price), 0, '', ' ') . " ₽";
 }
 //Упрощенная функция очистки html-символов
-function replace_specialchars ($var) {
+function my_htmlspecialchars ($var) {
 	return htmlspecialchars($var, ENT_QUOTES);
 }
 //Функция подсчета оставшегося времени
